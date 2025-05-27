@@ -461,6 +461,16 @@ export const cyberElements: CyberElement[] = [
     category: ElementCategory.DataScience,
     number: 56,
     description: "Strategies and technologies used by enterprises for the data analysis of business information."
+  },
+  {
+    id: "57",
+    symbol: "XSS",
+    name: "Cross-Site Scripting",
+    category: ElementCategory.Security,
+    number: 57,
+    description: "A security vulnerability that allows attackers to inject malicious scripts into web pages viewed by other users.",
+    relatedTerms: ["Web Security", "Input Validation", "Sanitization"],
+    learnMoreUrl: "https://owasp.org/www-community/attacks/xss/"
   }
 ];
 
