@@ -24,19 +24,22 @@ const PeriodicTable: React.FC = () => {
     });
   }, [searchTerm, selectedCategory]);
 
-  // Organize elements into a grid (7 rows x 8 columns)
+  // Calculate the number of rows needed based on the total elements
+  const numRows = Math.ceil(cyberElements.length / 8);
+
+  // Organize elements into a grid
   const rows = useMemo(() => {
-    const grid: CyberElement[][] = Array(7).fill(null).map(() => []);
+    const grid: CyberElement[][] = Array(numRows).fill(null).map(() => []);
     
     filteredElements.forEach((element) => {
       const rowIndex = Math.floor((element.number - 1) / 8);
-      if (rowIndex >= 0 && rowIndex < 7) {
+      if (rowIndex >= 0 && rowIndex < numRows) {
         grid[rowIndex].push(element);
       }
     });
     
     return grid;
-  }, [filteredElements]);
+  }, [filteredElements, numRows]);
 
   return (
     <div className="container mx-auto px-4 py-8">
