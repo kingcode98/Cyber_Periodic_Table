@@ -17,11 +17,11 @@ const ElementCell: React.FC<ElementCellProps> = ({ element, onClick, isSelected 
         relative 
         cursor-pointer 
         rounded-lg 
-        p-3 
+        p-2
         flex 
         flex-col 
         justify-between 
-        h-24
+        h-28
         transition-all 
         duration-300 
         transform 
@@ -34,12 +34,15 @@ const ElementCell: React.FC<ElementCellProps> = ({ element, onClick, isSelected 
         boxShadow: isSelected ? `0 0 15px ${categoryData.color}` : 'none',
       }}
     >
-      <div className="absolute top-1 right-2 text-xs opacity-70">
+      <div className="text-xs opacity-70 absolute top-1 left-2">
         {element.number}
       </div>
-      <div className="text-2xl font-bold">{element.symbol}</div>
-      <div className="text-xs truncate">{element.name}</div>
-      <div className="absolute -bottom-2 -right-2 opacity-10 text-5xl font-bold">{element.symbol}</div>
+      <div className="text-center mt-4">
+        <div className="text-2xl font-bold">{element.symbol}</div>
+        <div className="text-[10px] leading-tight mt-1 font-medium">
+          {element.name}
+        </div>
+      </div>
     </div>
   );
 };

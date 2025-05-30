@@ -29,12 +29,13 @@ const PeriodicTable: React.FC = () => {
 
   // Organize elements into a grid
   const rows = useMemo(() => {
-    const grid: CyberElement[][] = Array(numRows).fill(null).map(() => []);
+    const grid: (CyberElement | null)[][] = Array(numRows).fill(null).map(() => Array(8).fill(null));
     
     filteredElements.forEach((element) => {
       const rowIndex = Math.floor((element.number - 1) / 8);
+      const colIndex = (element.number - 1) % 8;
       if (rowIndex >= 0 && rowIndex < numRows) {
-        grid[rowIndex].push(element);
+        grid[rowIndex][colIndex] = element;
       }
     });
     
@@ -52,26 +53,23 @@ const PeriodicTable: React.FC = () => {
         categoryInfo={categoryInfo}
       />
       
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 gap-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 gap-4">
           {rows.map((row, rowIndex) => (
-            <div key={`row-${rowIndex}`} className="grid grid-cols-8 gap-2 md:gap-4">
-              {Array(8).fill(null).map((_, colIndex) => {
-                const elementIndex = row.findIndex(element => (element.number - 1) % 8 === colIndex);
-                if (elementIndex === -1) {
-                  return <div key={`empty-${rowIndex}-${colIndex}`} className="h-24"></div>;
-                }
-                
-                const element = row[elementIndex];
-                return (
-                  <ElementCell
-                    key={element.id}
-                    element={element}
-                    onClick={() => setSelectedElement(element)}
-                    isSelected={selectedElement?.id === element.id}
-                  />
-                );
-              })}
+            <div key={`row-${rowIndex}`} className="grid grid-cols-8 gap-3">
+              {row.map((element, colIndex) => (
+                <div key={`cell-${rowIndex}-${colIndex}`} className="aspect-square">
+                  {element ? (
+                    <ElementCell
+                      element={element}
+                      onClick={() => setSelectedElement(element)}
+                      isSelected={selectedElement?.id === element.id}
+                    />
+                  ) : (
+                    <div className="h-full"></div>
+                  )}
+                </div>
+              ))}
             </div>
           ))}
         </div>
